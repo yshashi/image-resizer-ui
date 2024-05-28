@@ -1,0 +1,35 @@
+<mat-toolbar>
+  <span>Image Resizer</span>
+</mat-toolbar>
+
+
+<div class="container mx-auto">
+  <div class="center h-52 text-red">
+    <h3 class="">Upload your photo to resize</h3>
+  </div>
+
+
+  <input #input (change)="onFileSelected($event)" class="hidden" type="file" accept="image/*">
+  <div class="flex gap-10">
+    <mat-card class="w-1/2 p-5 text-center">
+      <mat-card-content>
+        <button (click)="input.click()" mat-button class="w-full my-4">Upload Image via Device</button>
+        <p class="text-white ">Or drag and drop a image below</p>
+        <div
+          class="flex items-center justify-center text-center text-gray-400 border-2 border-gray-300 border-dashed drop-zone h-80">
+          Drop your image here (feature coming soon)
+        </div>
+      </mat-card-content>
+
+    </mat-card>
+    <div>
+      <img src="assets/images/ban.jpeg" alt="">
+    </div>
+  </div>
+
+
+</div>
+
+<mat-toolbar class="absolute bottom-0 w-full text-center">
+  <p>© 2024 YT thumbnail resizer.</p>
+</mat-toolbar>

@@ -1,1 +1,30 @@
 /* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.custom-dialog{
+  --mat-dialog-container-max-width: 1220px
+}
+
+
+.overlay{
+  background: rgba(0, 0, 0, 0.6);
+  width: 800px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.disabled{
+  opacity: 0.5;
+}
+p{
+  margin: 0 !important;
+}
