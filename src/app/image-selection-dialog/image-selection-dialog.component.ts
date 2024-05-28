@@ -6,6 +6,7 @@ import { ImagePreview } from '../home/home.component';
 import { ImageService } from '../services/image.service';
 import { HttpResponse } from '@angular/common/http';
 import { NgToastService } from 'ng-angular-popup';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-image-selection-dialog',
@@ -74,6 +75,7 @@ export class ImageSelectionDialogComponent {
   IMAGE_SIZES = IMAGE_SIZES;
   isDownloadVisible = signal(false);
   #toast = inject(NgToastService);
+  #spinner = inject(NgxSpinnerService);
   constructor(
     @Inject(MAT_DIALOG_DATA)
     public data: { imagePreview: ImagePreview; fileName: string; file: File },
@@ -86,6 +88,7 @@ export class ImageSelectionDialogComponent {
   }
 
   downloadImage() {
+    this.#spinner.show();
     this.imageService.download(this.fileName).subscribe({
       next: (res: HttpResponse<Blob>) => {
         this.triggerDownload(res.body, this.fileName);
@@ -105,10 +108,14 @@ export class ImageSelectionDialogComponent {
           position: 'topRight',
         });
       },
+      complete: () => {
+        this.#spinner.hide();
+      },
     });
   }
 
   reset() {
+    this.#spinner.show();
     this.imageService.delete(this.fileName).subscribe({
       next: (res: unknown) => {
         this.isDownloadVisible.set(false);
@@ -122,10 +129,15 @@ export class ImageSelectionDialogComponent {
           position: 'topRight',
         });
       },
+      complete: () => {
+        this.#spinner.hide();
+      },
+
     });
   }
 
   uploadImage(format: string) {
+    this.#spinner.show();
     const formData = new FormData();
     formData.append('image', this.file);
     formData.append('format', format);
@@ -147,6 +159,9 @@ export class ImageSelectionDialogComponent {
           sticky: true,
           position: 'topRight',
         });
+      },
+      complete: () => {
+        this.#spinner.hide();
       },
     });
   }
