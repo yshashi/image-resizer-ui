@@ -92,12 +92,6 @@ export class ImageSelectionDialogComponent {
     this.imageService.download(this.fileName).subscribe({
       next: (res: HttpResponse<Blob>) => {
         this.triggerDownload(res.body, this.fileName);
-        this.#toast.success({
-          detail: 'SUCCESS',
-          summary: 'Image downloaded',
-          sticky: true,
-          position: 'topRight',
-        });
       },
       error: (err) => {
         console.log(err);
