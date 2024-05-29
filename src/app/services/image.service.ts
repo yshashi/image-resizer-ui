@@ -5,7 +5,7 @@ import { Injectable, inject } from '@angular/core';
   providedIn: 'root',
 })
 export class ImageService {
-  #baseUrl = 'https://image-resizer-1ahd.onrender.com';
+  #baseUrl ='https://image-resizer-1ahd.onrender.com';
   #http = inject(HttpClient);
 
   upload(formData: FormData) {

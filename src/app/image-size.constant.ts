@@ -1,15 +1,15 @@
-interface ImageSizeDetails {
+export interface ImageSizeDetails {
   width: number;
   height: number;
   formatName: string;
 }
 
 export const IMAGE_SIZES: { [key: string]: ImageSizeDetails } = {
-  'yt-thumbnail': { width: 1280, height: 720, formatName: 'YouTube Thumbnail' },
-  'yt-cover': { width: 2560, height: 1440, formatName: 'YouTube Cover' },
-  'yt-end-screen': { width: 1920, height: 1080, formatName: 'YouTube End Screen' },
-  'yt-channel-art': { width: 2560, height: 1440, formatName: 'YouTube Channel Art' },
-  'yt-banner': { width: 2560, height: 1440, formatName: 'YouTube Banner' },
+  'youtube-thumbnail': { width: 1280, height: 720, formatName: 'YouTube Thumbnail' },
+  'youtube-cover': { width: 2560, height: 1440, formatName: 'YouTube Cover' },
+  'youtube-end-screen': { width: 1920, height: 1080, formatName: 'YouTube End Screen' },
+  'youtube-channel-art': { width: 2560, height: 1440, formatName: 'YouTube Channel Art' },
+  'youtube-banner': { width: 2560, height: 1440, formatName: 'YouTube Banner' },
 
   'facebook-story': { width: 1080, height: 1920, formatName: 'Facebook Story' },
   'facebook-square': { width: 1200, height: 1200, formatName: 'Facebook Square' },

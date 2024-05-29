@@ -1,0 +1,18 @@
+@if (imageDetail(); as imageDetail) {
+  <div class="overflow-hidden bg-white rounded-lg dark:bg-gray-900">
+    <div [ngClass]="[imageDetail.height | aspectRatio : imageDetail.width]" class="relative flex items-center justify-center bg-gray-100 dark:bg-gray-950">
+      <img [ngStyle]="getAspectRatio()" [src]="imageSrc()" alt="Facebook" [width]="imageDetail.width" [height]="imageDetail.height" class="object-contain w-full h-full"
+        style="object-fit: cover;" />
+
+      <!-- Overlay -->
+      <div class="absolute inset-0 flex items-end justify-center transition-opacity bg-black bg-opacity-50 opacity-0 hover:opacity-100">
+        <button (click)="onDownload()" class="px-4 py-2 mb-4 text-black bg-white rounded-lg">Download</button>
+      </div>
+    </div>
+    <div class="p-4 md:p-6">
+      <p class="text-base font-medium md:text-lg">{{imageDetail.formatName}}</p>
+      <p class="text-sm text-gray-500 dark:text-gray-400">{{imageDetail.width}} x {{imageDetail.height}}</p>
+    </div>
+  </div>
+
+}
