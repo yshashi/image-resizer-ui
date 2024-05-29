@@ -3,19 +3,12 @@
     <h1 class="text-4xl font-bold md:text-5xl">Image Resizer</h1>
     <p class="text-lg text-gray-500 dark:text-gray-400">Resize your images for social media platforms</p>
   </div>
+  <input #input (change)="onFileSelected($event)" class="hidden" type="file" accept="image/*">
   <div class="w-full mx-auto mt-8 overflow-hidden border border-gray-400 rounded-lg sm:w-1/2 md:mt-20 dark:border-gray-800">
-    <div class="flex items-center justify-center p-8 bg-gray-200 dark:bg-gray-950 md:p-12 h-80 md:h-96">
+    <div (click)="input.click()" class="flex items-center justify-center p-8 bg-gray-200 dark:bg-gray-950 md:p-12 h-80 md:h-96">
       <div class="space-y-6 text-center">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-          class="w-12 h-12 text-gray-500 dark:text-gray-400">
-          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-          <polyline points="17 8 12 3 7 8"></polyline>
-          <line x1="12" x2="12" y1="3" y2="15"></line>
-        </svg>
-        <input #input (change)="onFileSelected($event)" class="hidden" type="file" accept="image/*">
         <p class="text-gray-500 dark:text-gray-400">
-          Drag and drop your image or <a (click)="input.click()" class="font-medium cursor-pointer text-primary">browse
+          Drag and drop your image or <a class="text-xl font-bold cursor-pointer dark:text-white text-primary">browse
             files</a>
         </p>
         <input class="hidden" accept="image/*" type="file" />
