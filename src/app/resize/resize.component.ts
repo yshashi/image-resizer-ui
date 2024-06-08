@@ -40,12 +40,7 @@ export class ResizeComponent {
       },
       error: (err) => {
         console.log(err);
-        this.#toast.error({
-          detail: 'ERROR',
-          summary: err?.error?.error || 'failed to download!',
-          sticky: true,
-          position: 'topRight',
-        });
+        this.#toast.danger(err?.error?.error || 'failed to download!', 'ERROR');
       },
       complete: () => {
         this.#spinner.hide();
@@ -59,12 +54,7 @@ export class ResizeComponent {
       next: (res: unknown) => {},
       error: (err) => {
         console.log(err, 'Failed to delete!');
-        this.#toast.error({
-          detail: 'ERROR',
-          summary: err?.error?.error || 'failed to delete!',
-          sticky: true,
-          position: 'topRight',
-        });
+        this.#toast.danger(err?.error?.error || 'failed to delete!', 'ERROR');
       },
       complete: () => {
         this.#spinner.hide();
@@ -86,12 +76,7 @@ export class ResizeComponent {
       },
       error: (err) => {
         console.log(err);
-        this.#toast.error({
-          detail: 'ERROR',
-          summary: err?.error?.error || 'failed to upload!',
-          sticky: true,
-          position: 'topRight',
-        });
+        this.#toast.danger(err?.error?.error || 'failed to upload!', 'ERROR');
         this.#spinner.hide();
       },
       complete: () => {
