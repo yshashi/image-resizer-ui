@@ -20,8 +20,8 @@
     <div>
       <h4 class="text-3xl font-bold text-center">Youtube Formats</h4>
       <div class="grid grid-cols-1 gap-8 p-8 md:grid-cols-2 lg:grid-cols-4 md:p-12">
-        @for (item of ytFormats; track $index) {
-        <app-image-preview (handleDownload)="uploadImage(item)" [imageSrc]="imagePreview()" [imageDetail]="IMAGE_SIZES[item]"></app-image-preview>
+        @for (item of ytFormats(); track $index) {
+        <app-image-preview (handleDownload)="uploadImage(item)" [imageSrc]="imagePreview()" [imageDetail]="IMAGE_SIZES()[item]"></app-image-preview>
         }
       </div>
     </div>
@@ -29,8 +29,8 @@
     <div>
       <h4 class="text-3xl font-bold text-center">Facebook Formats</h4>
       <div class="grid grid-cols-1 gap-8 p-8 md:grid-cols-2 lg:grid-cols-4 md:p-12">
-        @for (item of fbFormats; track $index) {
-        <app-image-preview (handleDownload)="uploadImage(item)" [imageSrc]="imagePreview()" [imageDetail]="IMAGE_SIZES[item]"></app-image-preview>
+        @for (item of fbFormats(); track $index) {
+        <app-image-preview (handleDownload)="uploadImage(item)" [imageSrc]="imagePreview()" [imageDetail]="IMAGE_SIZES()[item]"></app-image-preview>
         }
       </div>
     </div>
@@ -38,8 +38,8 @@
     <div>
       <h4 class="text-3xl font-bold text-center">Instagram Formats</h4>
       <div class="grid grid-cols-1 gap-8 p-8 md:grid-cols-2 lg:grid-cols-4 md:p-12">
-        @for (item of instaFormats; track $index) {
-        <app-image-preview (handleDownload)="uploadImage(item)" [imageSrc]="imagePreview()" [imageDetail]="IMAGE_SIZES[item]"></app-image-preview>
+        @for (item of instaFormats(); track $index) {
+        <app-image-preview (handleDownload)="uploadImage(item)" [imageSrc]="imagePreview()" [imageDetail]="IMAGE_SIZES()[item]"></app-image-preview>
         }
       </div>
     </div>

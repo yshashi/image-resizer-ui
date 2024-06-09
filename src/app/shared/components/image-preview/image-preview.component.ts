@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { IMAGE_SIZES, ImageSizeDetails } from '../../../image-size.constant';
 import { NgClass, NgStyle } from '@angular/common';
 import { AspectRatioPipe } from '../../pipes/aspect-ratio.pipe';
@@ -9,6 +9,7 @@ import { AspectRatioPipe } from '../../pipes/aspect-ratio.pipe';
   imports: [NgStyle, NgClass, AspectRatioPipe],
   templateUrl: './image-preview.component.html',
   styleUrl: './image-preview.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ImagePreviewComponent {
   imageSrc = input.required();
