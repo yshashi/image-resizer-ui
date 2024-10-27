@@ -10,7 +10,7 @@ import { HttpResponse } from '@angular/common/http';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ImageService } from '../../services/image.service';
 import { IMAGE_SIZES } from '../../image-size.constant';
-import { switchMap } from 'rxjs';
+import { finalize, switchMap } from 'rxjs';
 import {
   fbFormats,
   instaFormats,
@@ -38,11 +38,11 @@ export class ResizeComponent {
   #toast = inject(NgToastService);
   #spinner = inject(NgxSpinnerService);
 
-  downloadImage(fileName: string) {
+  downloadImage() {
     this.#spinner.show();
-    this.#imageService.download(fileName).subscribe({
+    this.#imageService.download(this.fileName()).subscribe({
       next: (res: HttpResponse<Blob>) => {
-        this.triggerDownload(res.body, fileName);
+        this.triggerDownload(res.body, this.fileName());
       },
       error: (err) => {
         console.log(err);
@@ -70,27 +70,34 @@ export class ResizeComponent {
     });
   }
 
-  uploadImage(format: string) {
+  uploadImage() {
     this.#spinner.show();
+
+    const formData = this.createFormData();
+    this.#imageService.upload(formData)
+    .subscribe({
+      next: (res) => {
+        console.log(res);
+        this.#spinner.hide();
+      },
+      error: (err) => {
+        console.log(err);
+        this.#toast.danger(err?.error?.error || 'failed to upload!', 'ERROR');
+        this.#spinner.hide();
+      },
+    })
+  }
+
+  private createFormData(): FormData {
     const formData = new FormData();
     formData.append('image', this.file() as File);
-    formData.append('format', format);
-    this.#imageService
-      .upload(formData)
-      .pipe(switchMap((res) => this.#imageService.download(this.fileName())))
-      .subscribe({
-        next: (res: HttpResponse<Blob>) => {
-          this.triggerDownload(res.body, `${format}-${this.fileName()}`);
-        },
-        error: (err) => {
-          console.log(err);
-          this.#toast.danger(err?.error?.error || 'failed to upload!', 'ERROR');
-          this.#spinner.hide();
-        },
-        complete: () => {
-          this.#spinner.hide();
-        },
-      });
+    return formData;
+  }
+
+  private handleDownloadSuccess(data: Blob | null, format: string) {
+    if (data) {
+      this.triggerDownload(data, `${format}-${this.fileName()}`);
+    }
   }
 
   private triggerDownload(data: Blob | null, filename: string): void {
@@ -103,7 +110,7 @@ export class ResizeComponent {
       a.click();
       window.URL.revokeObjectURL(url);
       document.body.removeChild(a);
-      this.reset();
+      //this.reset();
     }
   }
 
@@ -115,6 +122,8 @@ export class ResizeComponent {
       this.imagePreview.set(reader.result);
     };
     reader.readAsDataURL(this.file() as Blob);
+
+    this.uploadImage();
   }
 }
 
