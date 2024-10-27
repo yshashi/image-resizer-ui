@@ -16,6 +16,7 @@ export class ImageService {
   downloadImage(filename: string, format: string): Observable<Blob> {
     const url = `${this.#baseUrl}/download/${filename}`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    headers.append('Access-Control-Allow-Origin', '*');
     const body = { format };
 
     return this.#http.post(url, body, {
