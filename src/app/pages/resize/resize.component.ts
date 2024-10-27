@@ -41,7 +41,7 @@ export class ResizeComponent {
   downloadImage(format: string) {
     this.#spinner.show();
     this.#imageService.downloadImage(this.fileName(), format).subscribe({
-      next: (res: Blob) => {
+      next: (res) => {
         this.triggerDownload(res, this.fileName());
       },
       error: (err) => {
@@ -99,7 +99,7 @@ export class ResizeComponent {
     }
   }
 
-  private triggerDownload(data: Blob | null, filename: string): void {
+  private triggerDownload(data: any | null, filename: string): void {
     if (data) {
       const url = window.URL.createObjectURL(data);
       const a = document.createElement('a');
