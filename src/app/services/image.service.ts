@@ -13,15 +13,17 @@ export class ImageService {
     return this.#http.post(`${this.#baseUrl}/upload`, formData);
   }
 
-  downloadImage(filename: string, format: string) {
-    const url = `${this.#baseUrl}/download/${filename}`;
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    headers.append('Access-Control-Allow-Origin', '*');
-    const body = { format, filename };
+  downloadImage(filename: string, format: string): Observable<Blob> {
+    const url = `${this.#baseUrl}/download`;
+    const body = { filename, format };
 
     return this.#http.post(url, body, {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-      responseType: 'blob' as 'json',  // responseType 'blob' for file download
+      headers: new HttpHeaders({
+        'Accept': 'application/json, image/jpeg',
+        'Content-Type': 'application/json'
+      }),
+      responseType: 'blob',
+      withCredentials: true
     });
   }
 
