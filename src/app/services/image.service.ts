@@ -17,7 +17,7 @@ export class ImageService {
     const url = `${this.#baseUrl}/download/${filename}`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     headers.append('Access-Control-Allow-Origin', '*');
-    const body = { format };
+    const body = { format, filename };
 
     return this.#http.post(url, body, {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
