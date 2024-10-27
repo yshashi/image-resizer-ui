@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/internal/Observable';
   providedIn: 'root',
 })
 export class ImageService {
-  #baseUrl = 'http://localhost:8100'; //'http://localhost:8100' https://resizer-api.letsprogram.in
+  #baseUrl = 'https://resizer-api.letsprogram.in'; //'http://localhost:8100' https://resizer-api.letsprogram.in
   #http = inject(HttpClient);
 
   upload(formData: FormData) {
