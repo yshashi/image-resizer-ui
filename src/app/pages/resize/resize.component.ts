@@ -41,8 +41,8 @@ export class ResizeComponent {
   downloadImage(format: string) {
     this.#spinner.show();
     this.#imageService.downloadImage(this.fileName(), format).subscribe({
-      next: (res) => {
-        this.triggerDownload(res, this.fileName());
+      next: (blob: Blob) => {
+        this.#imageService.handleImageDownload(blob, this.fileName());
       },
       error: (err) => {
         console.log(err);
