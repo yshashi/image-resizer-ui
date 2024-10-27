@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Injectable({
   providedIn: 'root',
@@ -12,12 +13,15 @@ export class ImageService {
     return this.#http.post(`${this.#baseUrl}/upload`, formData);
   }
 
-  download(fileName: string) {
-    return this.#http.post(
-      `${this.#baseUrl}/download/${fileName}`,
-      {},
-      { responseType: 'blob', observe: 'response' }
-    );
+  downloadImage(filename: string, format: string): Observable<Blob> {
+    const url = `${this.#baseUrl}/download/${filename}`;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const body = { format };
+
+    return this.#http.post(url, body, {
+      headers,
+      responseType: 'blob',
+    })
   }
 
   delete(fileName: string) {

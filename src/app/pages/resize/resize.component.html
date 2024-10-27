@@ -16,7 +16,7 @@
         <h4 class="text-3xl font-bold text-center text-gray-900 dark:text-white">Youtube Formats</h4>
         <div class="grid grid-cols-1 gap-8 p-8 md:grid-cols-2 lg:grid-cols-4 md:p-12">
           @for (item of ytFormats(); track $index) {
-          <app-image-preview (handleDownload)="downloadImage()" [imageSrc]="imagePreview()"
+          <app-image-preview (handleDownload)="downloadImage(item)" [imageSrc]="imagePreview()"
             [imageDetail]="IMAGE_SIZES()[item]" />
           }
         </div>
@@ -26,7 +26,7 @@
         <h4 class="text-3xl font-bold text-center text-gray-900 dark:text-white">Facebook Formats</h4>
         <div class="grid grid-cols-1 gap-8 p-8 md:grid-cols-2 lg:grid-cols-4 md:p-12">
           @for (item of fbFormats(); track $index) {
-          <app-image-preview (handleDownload)="downloadImage()" [imageSrc]="imagePreview()"
+          <app-image-preview (handleDownload)="downloadImage(item)" [imageSrc]="imagePreview()"
             [imageDetail]="IMAGE_SIZES()[item]"></app-image-preview>
           }
         </div>
@@ -36,7 +36,7 @@
         <h4 class="text-3xl font-bold text-center text-gray-900 dark:text-white">Instagram Formats</h4>
         <div class="grid grid-cols-1 gap-8 p-8 md:grid-cols-2 lg:grid-cols-4 md:p-12">
           @for (item of instaFormats(); track $index) {
-          <app-image-preview (handleDownload)="downloadImage()" [imageSrc]="imagePreview()"
+          <app-image-preview (handleDownload)="downloadImage(item)" [imageSrc]="imagePreview()"
             [imageDetail]="IMAGE_SIZES()[item]"></app-image-preview>
           }
         </div>

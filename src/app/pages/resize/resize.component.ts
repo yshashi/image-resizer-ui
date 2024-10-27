@@ -38,11 +38,11 @@ export class ResizeComponent {
   #toast = inject(NgToastService);
   #spinner = inject(NgxSpinnerService);
 
-  downloadImage() {
+  downloadImage(format: string) {
     this.#spinner.show();
-    this.#imageService.download(this.fileName()).subscribe({
-      next: (res: HttpResponse<Blob>) => {
-        this.triggerDownload(res.body, this.fileName());
+    this.#imageService.downloadImage(this.fileName(), format).subscribe({
+      next: (res: Blob) => {
+        this.triggerDownload(res, this.fileName());
       },
       error: (err) => {
         console.log(err);
@@ -74,8 +74,7 @@ export class ResizeComponent {
     this.#spinner.show();
 
     const formData = this.createFormData();
-    this.#imageService.upload(formData)
-    .subscribe({
+    this.#imageService.upload(formData).subscribe({
       next: (res) => {
         console.log(res);
         this.#spinner.hide();
@@ -85,7 +84,7 @@ export class ResizeComponent {
         this.#toast.danger(err?.error?.error || 'failed to upload!', 'ERROR');
         this.#spinner.hide();
       },
-    })
+    });
   }
 
   private createFormData(): FormData {
