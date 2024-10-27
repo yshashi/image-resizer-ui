@@ -1,20 +1,29 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { ImagePreviewComponent } from '../shared/components/image-preview/image-preview.component';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  signal,
+} from '@angular/core';
+import { ImagePreviewComponent } from '../../shared/components/image-preview/image-preview.component';
 import { NgToastService } from 'ng-angular-popup';
 import { HttpResponse } from '@angular/common/http';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ImageService } from '../services/image.service';
-import { IMAGE_SIZES } from '../image-size.constant';
+import { ImageService } from '../../services/image.service';
+import { IMAGE_SIZES } from '../../image-size.constant';
 import { switchMap } from 'rxjs';
-import { fbFormats, instaFormats, ytFormats } from '../shared/utils/format.utils';
-
+import {
+  fbFormats,
+  instaFormats,
+  ytFormats,
+} from '../../shared/utils/format.utils';
+import { ImageUploaderComponent } from './image-uploader/image-uploader.component';
 @Component({
   selector: 'app-resize',
   standalone: true,
-  imports: [ImagePreviewComponent],
+  imports: [ImageUploaderComponent, ImagePreviewComponent],
   templateUrl: './resize.component.html',
   styleUrl: './resize.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ResizeComponent {
   imagePreview = signal<ImagePreview>(null);
@@ -66,24 +75,22 @@ export class ResizeComponent {
     const formData = new FormData();
     formData.append('image', this.file() as File);
     formData.append('format', format);
-    this.#imageService.upload(formData)
-    .pipe(
-      switchMap((res)=> this.#imageService.download(this.fileName()))
-    ).subscribe({
-      next: (res: HttpResponse<Blob>) => {
-        this.triggerDownload(res.body, `${format}-${this.fileName()}`);
-      },
-      error: (err) => {
-        console.log(err);
-        this.#toast.danger(err?.error?.error || 'failed to upload!', 'ERROR');
-        this.#spinner.hide();
-      },
-      complete: () => {
-        this.#spinner.hide();
-      },
-
-    })
-
+    this.#imageService
+      .upload(formData)
+      .pipe(switchMap((res) => this.#imageService.download(this.fileName())))
+      .subscribe({
+        next: (res: HttpResponse<Blob>) => {
+          this.triggerDownload(res.body, `${format}-${this.fileName()}`);
+        },
+        error: (err) => {
+          console.log(err);
+          this.#toast.danger(err?.error?.error || 'failed to upload!', 'ERROR');
+          this.#spinner.hide();
+        },
+        complete: () => {
+          this.#spinner.hide();
+        },
+      });
   }
 
   private triggerDownload(data: Blob | null, filename: string): void {
@@ -100,13 +107,8 @@ export class ResizeComponent {
     }
   }
 
-  onFileSelected(event: Event) {
-    console.log(event);
-    const files = (event.target as HTMLInputElement).files;
-    this.file.set(files ? files[0] : null);
-    if (!this.file()) {
-      return;
-    }
+  onFileSelected(file: File) {
+    this.file.set(file);
     this.fileName.set(this.file()?.name as string);
     const reader = new FileReader();
     reader.onload = () => {
@@ -115,6 +117,5 @@ export class ResizeComponent {
     reader.readAsDataURL(this.file() as Blob);
   }
 }
-
 
 export type ImagePreview = string | ArrayBuffer | null;

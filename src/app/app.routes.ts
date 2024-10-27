@@ -9,11 +9,11 @@ export const routes: Routes = [
   {
     path: 'home',
     loadComponent: () =>
-      import('./landing/landing.component').then((m) => m.LandingComponent),
+      import('./pages/landing/landing.component').then((m) => m.LandingComponent),
   },
   {
     path: 'resize',
     loadComponent: () =>
-      import('./resize/resize.component').then((m) => m.ResizeComponent),
+      import('./pages/resize/resize.component').then((m) => m.ResizeComponent),
   },
 ];
